@@ -1,8 +1,8 @@
-export default function PokemonCard({ pokemon, keyProp }) {
+export function PokemonCard({ pokemon }) {
 
   return (
-    <div className="col">
-      <div className="card" style={{ width: "18rem" }}>
+    <div className="col d-flex justify-content-center">
+      <div className="card" style={{ minWidth: "18rem" }}>
         <img
           src={pokemon.image}
           className="card-img-top"
