@@ -1,43 +1,40 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./main.css";
-import { useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useGetPokemons } from "./hooks/useGetPokemons";
 import { FormInput } from "./components/FormInput";
-import { PokemonCard } from "./components/PokemonCard";
 import { LoadMoreButton } from "./components/LoadMoreButton";
+import { DisplayPokemons } from "./components/DisplayPokemons";
 
 function App() {
+  const [newFilter, setNewFilter] = useState(null)
   const [size, setSize] = useState(1);
   const [word, setWord] = useState();
-  const { data, loading } = useGetPokemons({ size });
+  const { data, loading } = useGetPokemons({ size, newFilter });
 
   const handleClick = () => {
     setSize(size + 20);
   };
 
-  const handleSubmit = (keyword) => {
+  const handleSubmit = ({keyword}) => {
     setWord(keyword);
   };
+
+  const handleFilter = ({filter}) => {
+    console.log(filter)
+    setNewFilter(filter)
+    setSize(1);
+  }
 
   return (
     <div className="container-fluid py-5 bg-black content">
       <h1 className="text-center pb-5">Pokemon API</h1>
 
       <main className="d-flex flex-column">
-        <div className="row row-cols-xl-5 row-cols-md-3 row-cols-sm-2  gap-3 justify-content-center">
-          <FormInput getQuery={handleSubmit} />
+        <div className="row row-cols-xl-5 row-cols-md-4 row-cols-sm-3  gap-3 justify-content-center main-div">
+          <FormInput getFilter={handleFilter} getQuery={handleSubmit} />
 
-          {data ? (
-            data.map((pokemon, index) => {
-              return (
-                <PokemonCard key={index} pokemon={pokemon} keyProp={index} />
-              );
-            })
-          ) : (
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )}
+          <DisplayPokemons data={data} />
         </div>
 
         <LoadMoreButton loading={loading} prop={handleClick} />

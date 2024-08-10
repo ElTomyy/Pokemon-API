@@ -1,8 +1,33 @@
 .header-search {
     width: 100%;
-    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+
+}
+
+.input-group{
+    max-width: 250px;
+}
+
+.select-group {
+
+    width: 150px;
 }
 
 .content {
     min-height: 100vh;
+}
+
+.card-body-heigh {
+    min-height: 189.6px;
+}
+
+@media (min-width: 650px) {
+    .header-search {
+        align-items: inherit;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
