@@ -2,11 +2,13 @@ export function FormInput({ getQuery, getFilter }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const { query } = Object.fromEntries(new window.FormData(event.target));
-    getQuery({ keyword: query });
+    getFilter({filter: null})
+    getQuery({ keyword: query });    
   };
 
   const handleFilter = (event) => {
     const filter = event.target.value
+    getQuery({keyword: null})
     getFilter({filter})
   }
 
@@ -39,7 +41,6 @@ export function FormInput({ getQuery, getFilter }) {
             <option value="16">Dragon</option>
             <option value="17">Dark</option>
             <option value="18">Fairy</option>
-            <option value="19">Stellar</option>
           </select>
         </div>
         <form

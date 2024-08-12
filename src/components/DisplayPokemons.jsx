@@ -1,11 +1,11 @@
 import { PokemonCard } from "./PokemonCard";
 
-export function DisplayPokemons({ data }) {
+export function DisplayPokemons({ data, newWord }) {
   return (
     <>
       {data ? (
         data.map((pokemon, index) => {
-          return <PokemonCard key={index} pokemon={pokemon} keyProp={index} />;
+          return <PokemonCard newWord={newWord} key={index} pokemon={pokemon} keyProp={index} />;
         })
       ) : (
         <div className="spinner-border text-primary" role="status">

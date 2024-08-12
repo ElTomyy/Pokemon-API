@@ -9,8 +9,10 @@ import { DisplayPokemons } from "./components/DisplayPokemons";
 function App() {
   const [newFilter, setNewFilter] = useState(null)
   const [size, setSize] = useState(1);
-  const [word, setWord] = useState();
-  const { data, loading } = useGetPokemons({ size, newFilter });
+  const [word, setWord] = useState(null);
+  const { data, loading } = useGetPokemons({ size, newFilter, keyword: word });
+  console.log(data)
+  console.log(word)
 
   const handleClick = () => {
     setSize(size + 20);
@@ -21,7 +23,6 @@ function App() {
   };
 
   const handleFilter = ({filter}) => {
-    console.log(filter)
     setNewFilter(filter)
     setSize(1);
   }
@@ -34,10 +35,10 @@ function App() {
         <div className="row row-cols-xl-5 row-cols-md-4 row-cols-sm-3  gap-3 justify-content-center main-div">
           <FormInput getFilter={handleFilter} getQuery={handleSubmit} />
 
-          <DisplayPokemons data={data} />
+          <DisplayPokemons newWord={handleSubmit} data={data} />
         </div>
 
-        <LoadMoreButton loading={loading} prop={handleClick} />
+        {word ? null : <LoadMoreButton loading={loading} prop={handleClick} />}
       </main>
     </div>
   );
